@@ -117,6 +117,31 @@ connection.query('SELECT 1 + 1 AS solution', function (error, results, fields) {
 connection.end();
 ```
 
+The `queryAsync` function provides support for Promises, allowing asynchronous execution of queries.
+
+```js
+var mysql = require('mysql');
+var connection = mysql.createConnection({
+  host: 'localhost',
+  user: 'me',
+  password: 'secret',
+  database: 'my_db'
+});
+
+connection.connect();
+
+connection.queryAsync('SELECT 1 + 1 AS solution')
+  .then((results) => {
+    console.log('The solution is: ', results[0].solution);
+  })
+  .catch((error) => {
+    throw error;
+  })
+  .finally(() => {
+    connection.end();
+  });
+```
+
 From this example, you can learn the following:
 
 * Every method you invoke on a connection is queued and executed in sequence.
